@@ -5,7 +5,7 @@
             <div key={counter.label}
                  class="clock__piece"
                  data-id={counter.label}>
-                <template if:false={disableLabels}>
+                <template if:true={labels}>
                     <p class="clock__label">{counter.label}</p>
                 </template>
                 <span class="clock__card card">

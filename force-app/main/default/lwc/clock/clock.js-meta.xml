@@ -6,12 +6,13 @@
         <target>lightningCommunity__Default</target>
         <target>lightningCommunity__Page</target>
     </targets>
-    <masterLabel>[LWC DEMO] Clock</masterLabel>
+    <masterLabel>[LWC DEMO] 🕰️ Clock </masterLabel>
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
-            <property type="Boolean" name="hours" label="Enable hours" />
-            <property type="Boolean" name="minutes" label="Enable minutes" />
-            <property type="Boolean" name="seconds" label="Enable seconds" />
+            <property type="Boolean" name="hours" label="Enable hours"/>
+            <property type="Boolean" name="minutes" label="Enable minutes"/>
+            <property type="Boolean" name="seconds" label="Enable seconds"/>
+            <property type="Boolean" name="labels" label="Enable labels"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

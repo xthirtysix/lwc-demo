@@ -9,7 +9,7 @@ export default class Clock extends LightningElement {
     @api hours = false
     @api minutes = false
     @api seconds = false
-    @api disableLabels = false
+    @api labels = false
 
     @track previous = {
         date: null,
