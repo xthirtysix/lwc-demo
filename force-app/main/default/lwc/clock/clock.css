@@ -1,6 +1,9 @@
 :host {
     --half-height: 0.72em;
     --border-radius: 10px;
+
+    display: block;
+
     font-family: sans-serif;
 }
 
@@ -11,8 +14,6 @@
     padding: 1rem;
 
     text-align: center;
-
-    perspective: 400px;
 }
 
 .clock *,
