@@ -1,0 +1,24 @@
+<template>
+    <div class="clock">
+        <template for:each={counters}
+                  for:item="counter">
+            <div key={counter.label}
+                 class="clock__piece"
+                 data-id={counter.label}>
+                <template if:false={disableLabels}>
+                    <p class="clock__label">{counter.label}</p>
+                </template>
+                <span class="clock__card card">
+                    <span class="card__top">{counter.topValue}</span>
+                    <span class="card__flipper"
+                          data-value={counter.bottomValue}></span>
+                    <span class="card__back"
+                          data-value={counter.backValue}>
+                        <span class="card__flipper"
+                              data-value={counter.flippedValue}></span>
+                    </span>
+                </span>
+            </div>
+        </template>
+    </div>
+</template>
