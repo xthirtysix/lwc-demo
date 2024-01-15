@@ -1,0 +1,26 @@
+:host {
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    min-height: 100svh;
+
+    --ld-light-color-container-background: #efd9ce;
+    --ld-dark-color-container-background: #7c9eb2;
+}
+
+.content {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+@media (prefers-color-scheme: light) {
+    :host {
+        background-color: var(--ld-light-color-container-background);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :host {
+        background-color: var(--ld-dark-color-container-background);
+    }
+}
