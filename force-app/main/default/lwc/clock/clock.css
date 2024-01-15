@@ -7,6 +7,10 @@
     font-family: sans-serif;
 }
 
+.no-units {
+    padding: var(--lwc-varSpacingXLarge, 2rem);
+}
+
 .clock {
     display: inline-flex;
     gap: 1rem;
@@ -54,7 +58,7 @@
     height: var(--half-height);
     padding: 0.25em;
 
-    font-weight: 700;
+    font-weight: var(--lwc-fontWeightBold, 700);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 
     transform-style: preserve-3d;
