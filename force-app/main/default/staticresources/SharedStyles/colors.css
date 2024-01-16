@@ -1,0 +1,31 @@
+ :root {
+    /* UNIVERSAL COLORS */
+    --color-universal-jet: #272a2a;
+    --color-universal-onyx: #353935;
+
+     /* DARK THEME */
+     /* Pastel | Green -> Gray */
+     --color-dark-battleShipGray: #838e83;
+     /* Pastel | Green */
+     --color-dark-resedaGreen: #709176;
+     /* Pastel | Green */
+     --color-dark-cambridgeBlue: #739e82;
+     /* Pastel | Blue */
+     --color-dark-airSuperiorityBlue: #7c9eb2;
+
+     /* LIGHT THEME */
+     /* Bright | Red */
+     --color-light-rustyRed: #d62246;
+     /* Pastel | Red (Carrot) */
+     --color-light-burntSienna: #e26d5a;
+     /* Bright | Pink */
+     --color-light-rosePompadour: #ff7b9c;
+     /* Paster | Pink */
+     --color-light-salmonPink: #ffa5ab;
+     /* Pastel | Red -> Yellow (Peach) */
+     --color-light-champagnePink: #efd9ce;
+     /* Pastel | Blue */
+     --color-light-vistaBlue: #86a5d9;
+     /* Pastel | Green */
+     --color-light-teaGreen: #c4ebc8;
+ }
