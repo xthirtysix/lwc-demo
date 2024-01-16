@@ -1,24 +1,26 @@
 import { LightningElement, api, track } from 'lwc'
-import { getDate, toDoubleDigitTimeUnit } from 'c/utils'
+import { getCurrentTime, getTimeLeft, toDoubleDigitTimeUnit } from 'c/utils'
 
-const UNITS = ['date', 'hours', 'minutes', 'seconds']
+const UNITS = ['days', 'hours', 'minutes', 'seconds']
 const ANIMATION_CLASS_NAME = 'flip'
 
 export default class Clock extends LightningElement {
-    @api date = false
+    @api days = false
     @api hours = false
     @api minutes = false
     @api seconds = false
     @api labels = false
+    @api isCounter = false
+    @api expiredTime = new Date(new Date().setDate(new Date().getDate() + 130))
 
     @track previous = {
-        date: null,
+        days: null,
         hours: null,
         minutes: null,
         seconds: null
     }
     @track current = {
-        date: null,
+        days: null,
         hours: null,
         minutes: null,
         seconds: null
@@ -29,7 +31,12 @@ export default class Clock extends LightningElement {
     renderedCallback() {
         if (this.isRendered) return
 
-        this.enabledUnits.forEach(unit => this.initCounter(unit))
+        if (this.isCounter && this.expiredTime) {
+            UNITS.forEach(unit => this.initCounter(unit))
+        } else {
+            this.enabledUnits.forEach(unit => this.initCounter(unit))
+        }
+
         this.isRendered = true
     }
 
@@ -41,7 +48,16 @@ export default class Clock extends LightningElement {
 
             if (i++ % 10) return
 
-            this._update(unit, toDoubleDigitTimeUnit(getDate()[unit]))
+            const timeUnit = (this.isCounter && this.expiredTime)
+                    ? getTimeLeft(this.expiredTime)[unit]
+                    : getCurrentTime()[unit]
+
+            this._update(
+                unit,
+                unit === UNITS[0]
+                    ? timeUnit
+                    : toDoubleDigitTimeUnit(timeUnit)
+            )
         }
 
         setTimeout(updateClock, 500)
@@ -63,7 +79,9 @@ export default class Clock extends LightningElement {
     }
 
     get enabledUnits() {
-        return UNITS.filter(unit => this[unit])
+        return (this.isCounter && this.expiredTime)
+            ? UNITS
+            : UNITS.filter(unit => this[unit])
     }
 
     get counters() {

@@ -3,8 +3,8 @@
     grid-template-rows: max-content 1fr max-content;
     min-height: 100svh;
 
-    --ld-light-color-container-background: #efd9ce;
-    --ld-dark-color-container-background: #7c9eb2;
+    --ld-light-color-container-background: var(--color-light-champagnePink);
+    --ld-dark-color-container-background: var(--color-dark-resedaGreen);
 }
 
 .content {

@@ -13,9 +13,9 @@
 
 .clock {
     display: inline-flex;
-    gap: 1rem;
+    gap: var(--lwc-varSpacingMedium, 1rem);
     width: auto;
-    padding: 1rem;
+    padding: var(--lwc-varSpacingMedium, 1rem);
 
     text-align: center;
 }
@@ -35,7 +35,7 @@
 .clock__label {
     margin: 0;
 
-    font-size: 2.5vw;
+    font-size: 2vw;
     text-transform: capitalize;
 }
 
@@ -54,7 +54,8 @@
 .card__back::before,
 .card__back::after {
     display: block;
-    width: 1.8em;
+    width: 100%;
+    min-width: 1.8em;
     height: var(--half-height);
     padding: 0.25em;
 
@@ -156,12 +157,12 @@
     .card__flipper,
     .card__back::before,
     .card__back::after {
-        color: var(--clock-color-main, #393939);
+        color: var(--clock-color-main, var(--color-universal-onyx));
         background: var(--clock-backgroundColor-main, white);
     }
 
     .card__flipper {
-        color: var(--clock-color-secondary, #222222);
+        color: var(--clock-color-secondary, var(--color-universal-jet));
         background: var(--clock-backgroundColor-secondary, white);
         border-top: 1px solid
             var(--clock-borderColor-separator, rgba(0, 0, 0, 0.24));
@@ -174,12 +175,12 @@
     .card__back::before,
     .card__back::after {
         color: var(--clock-dark-backgroundColor-main, #cccccc);
-        background: var(--clock-dark-backgroundColor-main, #222222);
+        background: var(--clock-dark-backgroundColor-main, var(--color-universal-jet));
     }
 
     .card__flipper {
         color: var(--clock-dark-color-secondary, #fff);
-        background: var(--clock-dark-backgroundColor-secondary, #393939);
+        background: var(--clock-dark-backgroundColor-secondary, var(--color-universal-onyx));
         border-top: 1px solid
             var(--clock-borderColor-separator, rgba(0, 0, 0, 0.24));
     }
