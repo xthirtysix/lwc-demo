@@ -159,12 +159,12 @@
     .card__back::before,
     .card__back::after {
         color: var(--clock-color-main, var(--color-universal-onyx));
-        background: var(--clock-backgroundColor-main, white);
+        background: var(--clock-backgroundColor-main, var(--color-universal-whiteSmoke));
     }
 
     .card__flipper {
         color: var(--clock-color-secondary, var(--color-universal-jet));
-        background: var(--clock-backgroundColor-secondary, white);
+        background: var(--clock-backgroundColor-secondary, var(--color-universal-white));
         border-top: 1px solid
             var(--clock-borderColor-separator, rgba(0, 0, 0, 0.24));
     }
@@ -175,12 +175,12 @@
     .card__flipper,
     .card__back::before,
     .card__back::after {
-        color: var(--clock-dark-backgroundColor-main, #cccccc);
+        color: var(--clock-dark-backgroundColor-main, var(--color-universal-whiteSmoke));
         background: var(--clock-dark-backgroundColor-main, var(--color-universal-jet));
     }
 
     .card__flipper {
-        color: var(--clock-dark-color-secondary, #fff);
+        color: var(--clock-dark-color-secondary, var(--color-universal-white));
         background: var(--clock-dark-backgroundColor-secondary, var(--color-universal-onyx));
         border-top: 1px solid
             var(--clock-borderColor-separator, rgba(0, 0, 0, 0.24));
