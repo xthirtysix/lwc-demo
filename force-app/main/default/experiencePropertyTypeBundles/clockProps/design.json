@@ -1,0 +1,5 @@
+{
+    "propertySheet": {
+        "propertyRenderers": { "$": { "definition": "c/clockTypePickerCPE" } }
+    }
+}

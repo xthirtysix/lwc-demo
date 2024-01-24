@@ -1,0 +1,45 @@
+<template>
+    <lightning-select
+        name="widgetType"
+        label="Select widget type"
+        value={typeValue}
+        options={options}
+        onchange={handleTypeChange}
+        required
+    ></lightning-select>
+    <template lwc:if={isWidgetTypeSelected}>
+        <lightning-input
+            type="toggle"
+            label="Enable labels"
+            name="enableLabels"
+            checked={labelsValue}
+            onchange={handleLabelToggle}
+        ></lightning-input>
+    </template>
+    <template lwc:if={isClock}>
+        <lightning-input
+            type="toggle"
+            label="Enable seconds"
+            name="enableSeconds"
+            checked={secondsValue}
+            onchange={handleSecondsToggle}
+        ></lightning-input>
+    </template>
+    <template lwc:if={isCounter}>
+        <lightning-input
+            type="datetime"
+            label="Due date"
+            name="dueDate"
+            min={minDueDate}
+            value={dueDateValue}
+            onchange={handleDueDateChange}
+        ></lightning-input>
+        <lightning-input
+            type="toggle"
+            label="Disable zeroes"
+            name="disableZeroes"
+            checked={zeroesValue}
+            onchange={handleZeroesToggle}
+        ></lightning-input>
+    </template>
+</template>

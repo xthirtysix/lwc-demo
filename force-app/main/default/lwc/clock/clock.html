@@ -1,23 +1,36 @@
 <template>
+    <template lwc:if={_isTimerOver}>
+        <p class="no-units">Timer is over!</p>
+    </template>
     <!-- With digits -->
-    <template lwc:if={enabledUnits.length}>
+    <template lwc:elseif={enabledUnits.length}>
         <div class="clock">
-            <template for:each={counters}
-                    for:item="counter">
-                <div key={counter.label}
+            <template
+                for:each={counters}
+                for:item="counter"
+            >
+                <div
+                    key={counter.label}
                     class="clock__piece"
-                    data-id={counter.label}>
+                    data-id={counter.label}
+                >
                     <template lwc:if={labels}>
                         <p class="clock__label">{counter.label}</p>
                     </template>
                     <span class="clock__card card">
                         <span class="card__top">{counter.topValue}</span>
-                        <span class="card__flipper"
-                            data-value={counter.bottomValue}></span>
-                        <span class="card__back"
-                            data-value={counter.backValue}>
-                            <span class="card__flipper"
-                                data-value={counter.flippedValue}></span>
+                        <span
+                            class="card__flipper"
+                            data-value={counter.bottomValue}
+                        ></span>
+                        <span
+                            class="card__back"
+                            data-value={counter.backValue}
+                        >
+                            <span
+                                class="card__flipper"
+                                data-value={counter.flippedValue}
+                            ></span>
                         </span>
                     </span>
                 </div>
@@ -26,8 +39,6 @@
     </template>
     <!-- Empty -->
     <template lwc:else>
-        <p class="no-units">
-            Please enable at least one time unit.
-        </p>
+        <p class="no-units">Please enable at least one time unit.</p>
     </template>
 </template>

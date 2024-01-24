@@ -1,0 +1,27 @@
+{
+    "title": "Clock props",
+    "lightning:type": "lightning__objectType",
+    "properties": {
+        "widgetType": {
+            "lightning:type": "lightning__textType",
+            "title": "Widget type"
+        },
+        "isLabelsEnabled": {
+            "lightning:type": "lightning__booleanType",
+            "title": "Enable labels"
+        },
+        "isSecondsEnabled": {
+            "lightning:type": "lightning__booleanType",
+            "title": "Enable seconds"
+        },
+        "dueDate": {
+            "lightning:type": "lightning__dateTimeType",
+            "title": "Set due date"
+        },
+        "isZeroesDisabled": {
+            "lightning:type": "lightning__booleanType",
+            "title": "Disable zero values"
+        }
+    },
+    "unevaluatedProperties": false
+}
