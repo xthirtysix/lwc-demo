@@ -1,39 +1,44 @@
 :host {
     --ld-light-color-container-background: var(--color-light-champagnePink);
     --ld-dark-color-container-background: var(--color-dark-resedaGreen);
-    --transition-color-background: 1s background-color ease-in-out;
-    --transition-color-foreground: 1s color ease-in-out;
+
+    /* group-category-property-variant */
+    --color-background-main: var(--color-universal-whiteSmoke, whitesmoke);
+    --color-background-secondary: var(--color-universal-white, white);
+    --color-foreground-main: var(--color-universal-onyx, #353935);
+    --color-foreground-secondary: var(--color-universal-jet, #272a2a);
+
+    --inputs-color-boxShadow-innerTop: #272a2a24;
+    --inputs-color-boxShadow-innerBottom: #272a2a12;
+    --inputs-color-boxShadow-outer: #00000020;
+    --inputs-color-border: var(--color-background-secondary);
+
+    --transition-color-foreground: 0.55s color ease-in-out;
+    --transition-color-background: 0.55s background-color ease-in-out;
 
     display: grid;
     grid-template-rows: max-content 1fr max-content;
     min-height: 100svh;
+    background-color: var(--ld-light-color-container-background);
     transition: var(--transition-color-background);
+}
+
+:host(.dark) {
+    --color-background-main: var(--color-universal-jet, #272a2a);
+    --color-background-secondary: var(--color-universal-onyx, #353935);
+    --color-foreground-main: var(--color-universal-whiteSmoke, whitesmoke);
+    --color-foreground-secondary: var(--color-universal-white, white);
+
+    --inputs-color-boxShadow-innerTop: #00000080;
+    --inputs-color-boxShadow-innerBottom: #00000050;
+    --inputs-color-boxShadow-outer: #00000020;
+    --inputs-color-border: black;
+
+    background-color: var(--ld-dark-color-container-background);
 }
 
 .content {
     display: grid;
     align-items: center;
     justify-items: center;
-}
-
-@media (prefers-color-scheme: light) {
-    :host {
-        --color-background-main: var(--color-universal-whiteSmoke, whitesmoke);
-        --color-background-secondary: var(--color-universal-white, white);
-        --color-foreground-main: var(--color-universal-onyx, #353935);
-        --color-foreground-secondary: var(--color-universal-jet, #272a2a);
-
-        background-color: var(--ld-light-color-container-background);
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    :host {
-        --color-background-main: var(--color-universal-jet, #272a2a);
-        --color-background-secondary: var(--color-universal-onyx, #353935);
-        --color-foreground-main: var(--color-universal-whiteSmoke, whitesmoke);
-        --color-foreground-secondary: var(--color-universal-white, white);
-
-        background-color: var(--ld-dark-color-container-background);
-    }
 }
