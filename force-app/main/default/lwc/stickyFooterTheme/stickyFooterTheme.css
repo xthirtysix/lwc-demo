@@ -31,7 +31,7 @@
 
     --inputs-color-boxShadow-innerTop: #00000080;
     --inputs-color-boxShadow-innerBottom: #00000050;
-    --inputs-color-boxShadow-outer: #00000020;
+    --inputs-color-boxShadow-outer: #00000045;
     --inputs-color-border: black;
 
     background-color: var(--ld-dark-color-container-background);

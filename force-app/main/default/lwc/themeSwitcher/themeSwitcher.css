@@ -3,6 +3,7 @@
     --toggle-height: calc(var(--toggle-width) / 2);
     --toggle-borderRadius-pill: 500px;
     --toggle-borderRadius-circle: 50%;
+    cursor: pointer;
 }
 
 label {
@@ -21,35 +22,37 @@ label {
     height: var(--toggle-height);
     background-color: var(--color-background-secondary);
     border-radius: var(--toggle-borderRadius-pill);
-    border: 1px solid var(--color-background-secondary);
-    box-shadow: inset -1px 4px 5px #272a2a24, inset -1px -1px 4px #272a2a12,
-        1px 2px 3px 1px #00000020;
-    transition: box-shadow 0.25s ease-out;
-    cursor: pointer;
+    border: 1px solid var(--inputs-color-border);
+    box-shadow: inset -1px 4px 5px var(--inputs-color-boxShadow-innerTop),
+        inset -1px -1px 4px var(--inputs-color-boxShadow-innerBottom),
+        1px 2px 5px 1px var(--inputs-color-boxShadow-outer);
+    transition: box-shadow 0.55s ease-out, border-color 0.55s ease-out,
+        var(--transition-color-background);
 }
 
 .toggler:hover {
-    box-shadow: inset -1px 4px 5px #272a2a24, inset -1px -1px 4px #272a2a12,
-        1px 2px 5px 1px #00000035;
+    box-shadow: inset -1px 4px 5px var(--inputs-color-boxShadow-innerTop),
+        inset -1px -1px 4px var(--inputs-color-boxShadow-innerBottom),
+        1px 2px 5px 1px var(--inputs-color-boxShadow-outer);
 }
 
 .toggler::before {
     z-index: 1;
     position: absolute;
     display: block;
-    font-size: calc(var(--toggle-height) - 2px);
-    line-height: calc(var(--toggle-height));
-    /* background-color: var(--color-background-secondary); */
+    top: 50%;
+    font-size: calc(var(--toggle-height) - 5%);
+    line-height: var(--toggle-height);
     border-radius: var(--toggle-borderRadius-circle);
     transition: transform 0.35s cubic-bezier(0.45, 1.8, 0.5, 0.75);
-    transform: translate3d(1px, 0, 0);
+    transform: translate3d(1px, -47%, 0);
 }
 
 .checkbox:not(:checked) ~ .toggler::before {
-    content: '🌚';
+    content: '🌞';
 }
 
 .checkbox:checked ~ .toggler::before {
-    content: '🌞';
-    transform: translate3d(calc(var(--toggle-height) - 1px), 0, 0);
+    content: '🌛';
+    transform: translate3d(calc(var(--toggle-height) + 10%), -47%, 0);
 }
