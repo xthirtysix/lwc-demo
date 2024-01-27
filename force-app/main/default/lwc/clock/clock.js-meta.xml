@@ -6,7 +6,7 @@
         <target>lightningCommunity__Default</target>
         <target>lightningCommunity__Page</target>
     </targets>
-    <masterLabel>[LWC DEMO] 🕰️ Clock </masterLabel>
+    <masterLabel>[DEMO] 🕰️ Clock </masterLabel>
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
             <property
