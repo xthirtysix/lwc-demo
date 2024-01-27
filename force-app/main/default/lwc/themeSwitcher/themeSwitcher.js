@@ -1,7 +1,12 @@
-import { LightningElement } from 'lwc'
+import { LightningElement, api } from 'lwc'
 import { THEME, EVENT_NAME, STORAGE } from 'c/utils'
 
 export default class ThemeSwitcher extends LightningElement {
+    @api
+    label
+    @api
+    isLabelVisible = false
+
     _theme = THEME.LIGHT
 
     connectedCallback() {
@@ -14,6 +19,10 @@ export default class ThemeSwitcher extends LightningElement {
 
     get isChecked() {
         return this._theme === THEME.DARK
+    }
+
+    get labelClass() {
+        return this.isLabelVisible ? 'slds-show' : 'slds-hide'
     }
 
     handleTogglerChange(event) {

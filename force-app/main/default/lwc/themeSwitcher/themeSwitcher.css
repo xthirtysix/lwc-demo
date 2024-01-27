@@ -1,13 +1,15 @@
 :host {
-    --toggle-width: 3rem;
+    --toggle-width: 6rem;
     --toggle-height: calc(var(--toggle-width) / 2);
     --toggle-borderRadius-pill: 500px;
     --toggle-borderRadius-circle: 50%;
+    display: inline-block;
     cursor: pointer;
 }
 
 label {
     display: flex;
+    align-items: center;
     gap: 1rem;
 }
 
