@@ -1,0 +1,60 @@
+:host {
+    --toggle-width: 6rem;
+    --toggle-height: calc(var(--toggle-width) / 2);
+    --toggle-borderRadius-pill: 500px;
+    --toggle-borderRadius-circle: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.checkbox {
+    display: none;
+}
+
+.toggler {
+    position: relative;
+    display: inline-block;
+    width: var(--toggle-width);
+    height: var(--toggle-height);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--toggle-borderRadius-pill);
+    border: 1px solid var(--inputs-color-border);
+    box-shadow: inset -1px 4px 5px var(--inputs-color-boxShadow-innerTop),
+        inset -1px -1px 4px var(--inputs-color-boxShadow-innerBottom),
+        1px 2px 5px 1px var(--inputs-color-boxShadow-outer);
+    transition: box-shadow 0.55s ease-out, border-color 0.55s ease-out,
+        var(--transition-color-background);
+}
+
+.toggler:hover {
+    box-shadow: inset -1px 4px 5px var(--inputs-color-boxShadow-innerTop),
+        inset -1px -1px 4px var(--inputs-color-boxShadow-innerBottom),
+        1px 2px 5px 1px var(--inputs-color-boxShadow-outer);
+}
+
+.toggler::before {
+    z-index: 1;
+    position: absolute;
+    display: block;
+    top: 50%;
+    font-size: calc(var(--toggle-height) - 5%);
+    line-height: var(--toggle-height);
+    border-radius: var(--toggle-borderRadius-circle);
+    transition: transform 0.35s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+    transform: translate3d(1px, -47%, 0);
+}
+
+.checkbox:not(:checked) ~ .toggler::before {
+    content: '🌞';
+}
+
+.checkbox:checked ~ .toggler::before {
+    content: '🌛';
+    transform: translate3d(calc(var(--toggle-height) + 10%), -47%, 0);
+}

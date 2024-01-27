@@ -60,8 +60,12 @@
     padding: 0.25em;
 
     font-weight: var(--lwc-fontWeightBold, 700);
+    color: var(--clock-color-main, var(--color-foreground-main));
+    background: var(--clock-backgroundColor-main, var(--color-background-main));
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 
+    transition: var(--transition-color-foreground),
+        var(--transition-color-background);
     transform-style: preserve-3d;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -72,7 +76,17 @@
     top: 50%;
     left: 0;
 
+    color: var(--clock-color-secondary, var(--color-foreground-secondary));
+    background: var(
+        --clock-backgroundColor-secondary,
+        var(--color-background-secondary)
+    );
+    border-top: 1px solid
+        var(--clock-borderColor-separator, rgba(0, 0, 0, 0.24));
     border-radius: 0 0 var(--border-radius) var(--border-radius);
+
+    transition: var(--transition-color-foreground),
+        var(--transition-color-background);
 
     pointer-events: none;
     overflow: hidden;
@@ -150,39 +164,5 @@
         z-index: 5;
         transform: rotateX(0deg);
         opacity: 0.99;
-    }
-}
-
-@media (prefers-color-scheme: light) {
-    .card__top,
-    .card__flipper,
-    .card__back::before,
-    .card__back::after {
-        color: var(--clock-color-main, var(--color-universal-onyx));
-        background: var(--clock-backgroundColor-main, var(--color-universal-whiteSmoke));
-    }
-
-    .card__flipper {
-        color: var(--clock-color-secondary, var(--color-universal-jet));
-        background: var(--clock-backgroundColor-secondary, var(--color-universal-white));
-        border-top: 1px solid
-            var(--clock-borderColor-separator, rgba(0, 0, 0, 0.24));
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .card__top,
-    .card__flipper,
-    .card__back::before,
-    .card__back::after {
-        color: var(--clock-dark-backgroundColor-main, var(--color-universal-whiteSmoke));
-        background: var(--clock-dark-backgroundColor-main, var(--color-universal-jet));
-    }
-
-    .card__flipper {
-        color: var(--clock-dark-color-secondary, var(--color-universal-white));
-        background: var(--clock-dark-backgroundColor-secondary, var(--color-universal-onyx));
-        border-top: 1px solid
-            var(--clock-borderColor-separator, rgba(0, 0, 0, 0.24));
     }
 }

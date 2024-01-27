@@ -1,0 +1,13 @@
+<template>
+    <label>
+        <span class={labelClass}>{label}</span>
+        <input
+            class="checkbox"
+            type="checkbox"
+            name="theme"
+            checked={isChecked}
+            onchange={handleTogglerChange}
+        />
+        <span class="toggler"></span>
+    </label>
+</template>
