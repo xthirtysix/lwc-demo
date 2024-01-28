@@ -1,0 +1,13 @@
+:host() {
+    --color-snake: var(--color-dark-cambridgeBlue, green);
+    --color-apple: var(--color-light-rustyRed, red);
+}
+
+canvas {
+    background-color: var(--color-background-secondary);
+    border: 2px solid var(--color-background-main);
+    border-radius: 16px;
+    box-shadow: inset -1px 4px 5px var(--inputs-color-boxShadow-innerTop),
+        inset -1px -1px 4px var(--inputs-color-boxShadow-innerBottom),
+        1px 2px 5px 1px var(--inputs-color-boxShadow-outer);
+}
