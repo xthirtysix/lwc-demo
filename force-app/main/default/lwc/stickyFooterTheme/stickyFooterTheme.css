@@ -15,6 +15,7 @@
 
     --transition-color-foreground: 0.55s color ease-in-out;
     --transition-color-background: 0.55s background-color ease-in-out;
+    --transition-color-border: 0.55s border-color ease-in-out;
 
     display: grid;
     grid-template-rows: max-content 1fr max-content;
