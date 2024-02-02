@@ -1,12 +1,20 @@
 /* eslint-disable @lwc/lwc/no-async-operation */
 import { LightningElement } from 'lwc'
-import { Snake, CONTROLS } from './SnakeService'
+import { Snake, DIRECTION } from './SnakeService'
 import { getRandomNumber, EVENT_NAME } from 'c/utils'
 
-const CELL_SIZE = 16
-const CANVAS_DIMENSION = CELL_SIZE * 25
+const CELL_SIZE = 32
+const CANVAS_DIMENSION_MULTIPLIER = 15
+const CANVAS_DIMENSION = CELL_SIZE * CANVAS_DIMENSION_MULTIPLIER
 const SNAKE_COLOR = '--color-snake'
 const APPLE_COLOR = '--color-apple'
+const CONTROLS = {
+    ARROW_UP: 'ArrowUp',
+    ARROW_LEFT: 'ArrowLeft',
+    ARROW_DOWN: 'ArrowDown',
+    ARROW_RIGHT: 'ArrowRight',
+}
+const FOOD = ['🍓', '🍑', '🍎', '🍒']
 
 /**
  * @typedef {object} coordinates
@@ -17,8 +25,8 @@ const APPLE_COLOR = '--color-apple'
 export default class SnakeGame extends LightningElement {
     /** @type {coordinates} */
     apple = {
-        x: 480,
-        y: 240,
+        x: 320,
+        y: 320,
     }
 
     config = {
@@ -39,11 +47,14 @@ export default class SnakeGame extends LightningElement {
     _isFirstRender = true
 
     connectedCallback() {
-        this.snake = new Snake(
-            this.config.canvas.width / 2,
-            this.config.canvas.height / 2,
-            this.config.cell
+        this.snake = new Snake(160, 160, this.config.cell, 6, DIRECTION.RIGHT)
+        document.addEventListener(EVENT_NAME.KEYDOWN, event =>
+            this._registerKeys.call(this, event)
         )
+    }
+
+    disconnectedCallback() {
+        document.removeEventListener(EVENT_NAME.KEYDOWN, this._registerKeys)
     }
 
     renderedCallback() {
@@ -61,8 +72,6 @@ export default class SnakeGame extends LightningElement {
             this.template.host
         ).getPropertyValue(APPLE_COLOR)
 
-        this._registerKeys()
-
         requestAnimationFrame(this.animate.bind(this))
 
         this._isFirstRender = false
@@ -73,7 +82,8 @@ export default class SnakeGame extends LightningElement {
 
         this.config.speed++
 
-        if (this.config.speed < 4) return
+        if (this.config.speed < 16) return
+        if (!this.food) this.food = FOOD[getRandomNumber(0, FOOD.length)]
 
         this.config.speed = 0
         this.canvasContext.clearRect(
@@ -83,28 +93,38 @@ export default class SnakeGame extends LightningElement {
             this.config.canvas.height
         )
 
-        this.snake.turn()
+        this.snake.moveHead()
 
-        if (this.snake.x < 0) {
-            this.snake.x = this.config.canvas.width - this.config.cell
-        } else if (this.snake.x >= this.config.canvas.width) {
-            this.snake.x = 0
+        if (this.snake.xPosition < 0) {
+            this.snake.xPosition = this.config.canvas.width - this.config.cell
+        } else if (this.snake.xPosition >= this.config.canvas.width) {
+            this.snake.xPosition = 0
         }
 
-        if (this.snake.y < 0) {
-            this.snake.y = this.config.canvas.height - this.config.cell
-        } else if (this.snake.y >= this.config.canvas.height) {
-            this.snake.y = 0
+        if (this.snake.yPosition < 0) {
+            this.snake.yPosition = this.config.canvas.height - this.config.cell
+        } else if (this.snake.yPosition >= this.config.canvas.height) {
+            this.snake.yPosition = 0
         }
 
-        this.snake.move()
+        this.snake.moveTail()
 
+        this.canvasContext.globalAlpha = 0
         this.canvasContext.fillStyle = this.colors.apple
         this.canvasContext.fillRect(
             this.apple.x,
             this.apple.y,
             this.config.cell - 1,
             this.config.cell - 1
+        )
+        this.canvasContext.globalAlpha = 1
+        this.canvasContext.font = `${CELL_SIZE}px serif`
+        this.canvasContext.textAlign = 'center'
+        this.canvasContext.textBaseline = 'middle'
+        this.canvasContext.fillText(
+            this.food,
+            this.apple.x + this.config.cell / 2,
+            this.apple.y + this.config.cell / 2
         )
         this.canvasContext.fillStyle = this.colors.snake
 
@@ -116,44 +136,65 @@ export default class SnakeGame extends LightningElement {
                 this.config.cell - 1
             )
             if (cell.x === this.apple.x && cell.y === this.apple.y) {
+                this.food = null
                 this.snake.grow()
-                this.apple.x = getRandomNumber(0, 25) * this.config.cell
-                this.apple.y = getRandomNumber(0, 25) * this.config.cell
+                this.apple.x =
+                    getRandomNumber(0, CANVAS_DIMENSION_MULTIPLIER) *
+                    this.config.cell
+                this.apple.y =
+                    getRandomNumber(0, CANVAS_DIMENSION_MULTIPLIER) *
+                    this.config.cell
             }
             for (let i = index + 1; i < this.snake.tail.length; i++) {
                 if (
                     cell.x === this.snake.tail[i].x &&
                     cell.y === this.snake.tail[i].y
                 ) {
-                    this.snake.reset()
+                    this.snake = new Snake(
+                        160,
+                        160,
+                        this.config.cell,
+                        6,
+                        DIRECTION.RIGHT
+                    )
+                    this.apple.x =
+                        getRandomNumber(0, CANVAS_DIMENSION_MULTIPLIER) *
+                        this.config.cell
+                    this.apple.y =
+                        getRandomNumber(0, CANVAS_DIMENSION_MULTIPLIER) *
+                        this.config.cell
+                    break
                 }
             }
         })
     }
 
-    _registerKeys() {
-        this.template.addEventListener(EVENT_NAME.KEYDOWN, event => {
-            const { x, y } = this.snake.direction
+    _registerKeys(event) {
+        console.log(event.key)
+        const direction = this.snake.direction
 
-            switch (event.key) {
-                case CONTROLS.ARROW_LEFT:
-                    if (x === 0)
-                        this.snake.direction = { x: -this.config.cell, y: 0 }
-                    break
-                case CONTROLS.ARROW_RIGHT:
-                    if (x === 0)
-                        this.snake.direction = { x: this.config.cell, y: 0 }
-                    break
-                case CONTROLS.ARROW_UP:
-                    if (y === 0)
-                        this.snake.direction = { x: 0, y: -this.config.cell }
-                    break
-                case CONTROLS.ARROW_DOWN:
-                    if (y === 0)
-                        this.snake.direction = { x: 0, y: this.config.cell }
-                    break
-                default:
-            }
-        })
+        switch (event.key) {
+            case CONTROLS.ARROW_LEFT:
+                if (direction !== DIRECTION.RIGHT) {
+                    this.snake.turn(DIRECTION.LEFT)
+                }
+                break
+            case CONTROLS.ARROW_RIGHT:
+                if (direction !== DIRECTION.LEFT) {
+                    this.snake.turn(DIRECTION.RIGHT)
+                }
+                break
+            case CONTROLS.ARROW_UP:
+                if (direction !== DIRECTION.DOWN) {
+                    this.snake.turn(DIRECTION.UP)
+                }
+                break
+            case CONTROLS.ARROW_DOWN:
+                if (direction !== DIRECTION.UP) {
+                    this.snake.turn(DIRECTION.DOWN)
+                }
+                break
+            default:
+        }
     }
 }
