@@ -1,88 +1,144 @@
+export const DIRECTION = /** @type {const} */ ({
+    UP: 0,
+    RIGHT: 1,
+    DOWN: 2,
+    LEFT: 3,
+})
+
+/**
+ * @typedef coordinates
+ * @param {number} x - x position on canvas
+ * @param {number} y - y position on canvas
+/**
+ * @export
+ * @class NewSnake
+ */
 export class Snake {
-    defaultValues = {}
-    _x
-    _y
-    _tail = []
-    directionX = 0
-    directionY = 0
-    set x(value) {
-        this._x = value
+    /**
+     * @constructor
+     * @param  {number} x - x position on canvas
+     * @param  {number} y - y position on canvas
+     * @param  {number} cellSize - x and y dimensions of a snake's section
+     * @param  {number} maxSize - current maximum size of a snake
+     * @param  {0 | 1 | 2 | 3} direction - direction of movement
+     */
+    constructor(
+        x = 0,
+        y = 0,
+        cellSize = 10,
+        maxSize,
+        direction = DIRECTION.RIGHT
+    ) {
+        this._x = x
+        this._y = y
+        this._speed = cellSize
+        this._size = maxSize || 6
+        this._direction = direction
+
+        this._initialValues = {
+            _x: this._x,
+            _y: this._y,
+            _speed: this._speed,
+            _size: this._size,
+            _direction: this._direction,
+            _tail: [],
+        }
     }
-    get x() {
+
+    /**
+     * @type {coordinates[]} - snake's tail items on canvas
+     * @memberof NewSnake
+     */
+    _tail = []
+
+    /**
+     * @type {object}
+     * @descriptions initial values used to reset game on lose
+     * @memberof NewSnake
+     */
+    _initialValues = {}
+
+    /**
+     * @method moveHead
+     * @param {0 | 1 | 2 |3} direction
+     * @see DIRECTION
+     * @description turn snake in a way of direction
+     */
+    moveHead() {
+        switch (this._direction) {
+            case DIRECTION.UP:
+                this._y = this._y - this._speed
+                break
+            case DIRECTION.RIGHT:
+                this._x = this._x + this._speed
+                break
+            case DIRECTION.DOWN:
+                this._y = this._y + this._speed
+                break
+            // case DIRECTION.LEFT
+            default:
+                this._x = this._x - this._speed
+        }
+    }
+
+    /**
+     * @method moveTail
+     * @description move snake's tail
+     */
+    moveTail() {
+        this._tail.unshift({ x: this._x, y: this._y })
+
+        if (this._tail.length > this._size) {
+            this._tail.pop()
+        }
+    }
+
+    turn(direction) {
+        this._direction = direction
+    }
+
+    /**
+     * @method grow
+     * @description increase snake's length after it ate a fruit
+     */
+    grow() {
+        this._size++
+    }
+
+    /**
+     * @method reset
+     * @description reset game on lose
+     */
+    reset() {
+        for (const [key, value] of Object.entries(this._initialValues)) {
+            this[key] = value
+            console.log(key, this[key])
+        }
+    }
+
+    // GETTERS
+    get xPosition() {
         return this._x
     }
-    set y(value) {
-        this._y = value
-    }
-    get y() {
+
+    get yPosition() {
         return this._y
     }
-    set tail(value) {
-        this._tail = value
-    }
+
     get tail() {
         return this._tail
     }
-    set direction({ x, y }) {
-        this.directionX = x
-        this.directionY = y
-    }
+
     get direction() {
-        return { x: this.directionX, y: this.directionY }
-    }
-    size = 0
-
-    constructor(
-        startX = 0,
-        startY = 0,
-        speed = 10,
-        isVertical = false,
-        size = 4
-    ) {
-        this.defaultValues = {
-            x: startX,
-            y: startY,
-            directionX: isVertical ? 0 : speed,
-            directionY: isVertical ? speed : 0,
-            tail: [],
-            size: size,
-        }
-
-        this._x = startX
-        this._y = startY
-        this.directionX = isVertical ? 0 : speed
-        this.directionY = isVertical ? speed : 0
-        this._tail = []
-        this.size = size
+        return this._direction
     }
 
-    reset() {
-        for (const [key, value] of Object.entries(this.defaultValues)) {
-            this[key] = value
-        }
+    // SETTERS
+    set xPosition(value) {
+        this._x = value
     }
 
-    turn() {
-        this._x += this.direction.x
-        this._y += this.direction.y
+    set yPosition(value) {
+        this._y = value
     }
-
-    move() {
-        this.tail.unshift({ x: this.x, y: this.y })
-
-        if (this.tail.length > this.size) {
-            this.tail.pop()
-        }
-    }
-
-    grow() {
-        this.size++
-    }
-}
-
-export const CONTROLS = {
-    ARROW_UP: 'ArrowUp',
-    ARROW_LEFT: 'ArrowLeft',
-    ARROW_DOWN: 'ArrowDown',
-    ARROW_RIGHT: 'ArrowRight',
 }
